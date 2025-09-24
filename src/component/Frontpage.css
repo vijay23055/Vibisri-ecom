@@ -1,0 +1,235 @@
+.front-conatiner{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.front-logo{
+    display: flex;
+    flex: 1;  
+}
+.logo-btn{
+    margin-left: 100px;
+    /* width: 120px; */
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+}
+.navigate-path{
+    justify-content: center;
+    flex: 1;
+    display: flex;
+    
+}
+.navigate-listitem{
+    background-color: #FFFFFF33;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid rgb(15, 14, 14);
+    border-radius: 15px;
+    padding: 7px;
+    gap: 10px;
+}
+.navigate-Links:hover{
+    background-color: blue;
+    padding: 8px;
+    border-radius: 15px;
+}
+
+.navigate-icon{
+    flex:1;
+    display: flex;
+    margin-left: 30px;
+}
+
+.list-icon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.icon-color svg{
+    /* background-color: grey; */
+    color: black;
+}
+
+/* .front-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+} */
+
+.hero-card {
+  display: flex;
+  /* width: 100%; */
+  /* overflow: hidden; */
+}
+
+/* LEFT SIDE */
+.left-side {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.left-side h1 {
+  font-size: 4rem;
+  margin-bottom: 12px;
+}
+
+.left-side p {
+  font-size: 23px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  color: #555;
+}
+
+.left-side h2 {
+    padding-right: 5px;
+  font-size: 35px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.left-side button {
+  width: fit-content;
+  padding: 10px 20px;
+  background-color: #f4f2f2;
+  border: 2px solid black;
+  border-radius: 15px;
+  color: #070707;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.left-side button:hover {
+  background-color: #969595;
+}
+
+/* CENTER */
+.center-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.center-side .main-img {
+  width: 500px;
+  height: 700px;
+  object-fit: contain;
+  margin-top: -80px;
+  margin-right: 10px;
+}
+
+.center-side button {
+  margin: 10px 0;
+  padding: 8px 16px;
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.center-side button:hover {
+  background-color: #147acb;
+}
+
+.right-side { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start;  
+    padding: 50px; 
+    gap: 10px; }
+
+.right-side .side-card {
+  display: flex;
+  flex: 1; 
+  align-items: center; 
+  gap: 12px; 
+  padding: 8px 12px; 
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.right-side .side-card img {
+  width: 140px;  /* keep same */
+  height: 140px; /* keep same */
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.right-side .side-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  text-align: center; 
+}
+
+.right-side .side-card-info h5,
+.right-side .side-card-info p {
+  font-size: 15px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+
+
+/* Main image animation */
+.zoom-out {
+  animation: zoomOut 0.6s forwards;  /* slower */
+}
+
+.zoom-in {
+  animation: zoomIn 0.6s forwards;   /* slower */
+}
+
+@keyframes zoomOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.5); opacity: 0; }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Right-side card animation */
+.side-zoom-out {
+  animation: sideZoomOut 0.5s forwards; /* slower */
+}
+
+.side-zoom-in {
+  animation: sideZoomIn 0.5s forwards; /* slower */
+}
+
+@keyframes sideZoomOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+
+@keyframes sideZoomIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
