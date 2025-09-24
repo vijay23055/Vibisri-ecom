@@ -16,9 +16,9 @@ import "./Frontpage.css"
 const Frontpage = () => {
 
     const products = [
-        { id: 1, title: "South Spice Story", desc: "Flavors without compromise: South Indian Masala is the authentic taste of spices without additives.", price: 300, img: Chilli, bg: "#f5625d" },
-        { id: 2, title: "Vallari Rice powder", desc: "Authentic Vallari rice taste...", price: 300, img: Vallar, bg: "#60c657" },
-        { id: 3, title: "Chicken 65", desc: "Healthy multigrain mix...", price: 300, img: Chicken65, bg: "#d0b36f" },
+        { id: 1, title: "South Spice Story", sideTitle: "South Spice Story", desc: "Flavors without compromise: South Indian Masala is the authentic taste of spices without additives.", price: 300, img: Chilli, bg: "#f5625d" },
+        { id: 2, title: "Vallari Rice powder", sideTitle: "Vallari Rice\npowder", desc: "Authentic Vallari rice taste...", price: 300, img: Vallar, bg: "#60c657" },
+        { id: 3, title: "Chicken 65", sideTitle: "Chicken 65", desc: "Healthy multigrain mix...", price: 300, img: Chicken65, bg: "#d0b36f" },
     ];
 
     const [index, setIndex] = useState(0);
@@ -38,7 +38,28 @@ const Frontpage = () => {
     const handleUp = () => handleChange((index - 1 + products.length) % products.length);
     const handleDown = () => handleChange((index + 1) % products.length);
 
+    const handleSelect = (selectedIndex) => {
+        // If the selected index is already the main, do nothing
+        if (selectedIndex === index) return;
+        handleChange(selectedIndex);
+    };
+
     const main = products[index];
+
+    const renderTitle = (title) => {
+        const parts = title.split(' ');
+        if (parts.length <= 2) return title;
+        // join first two words with non-breaking space so they stay on one line
+        const first = parts.slice(0, 2).join('\u00A0');
+        const rest = parts.slice(2).join(' ');
+        return (
+            <>
+                <span className="title-line1">{first}</span>
+                
+                <span className="title-line2">{rest}</span>
+            </>
+        );
+    };
 
     
     const rightImages = [];
@@ -96,7 +117,7 @@ const Frontpage = () => {
 
                 {/* LEFT SIDE */}
                 <div className={`left-side ${animating ? "side-zoom-out" : "side-zoom-in"}`} >
-                    <h1>{main.title}</h1>
+                    <h1>{renderTitle(main.title)}</h1>
                     <p>{main.desc}</p>
                     <h2>₹{main.price}</h2>
                     <button>Shop Now</button>
@@ -112,15 +133,41 @@ const Frontpage = () => {
 
                 {/* RIGHT SIDE*/}
                 <div className="right-side">
-                    {rightImages.map((p) => (
-                        <div key={p.id} className={`side-card ${animating ? "side-zoom-out" : "side-zoom-in"}`} style={{ backgroundColor: p.bg }}>
-                            <img src={p.img} alt={p.title} className="side-card-img" />
-                            <div className="side-card-info">
-                                <h5>{p.title}</h5>
-                                <p>₹{p.price}</p>
+                    {rightImages.map((p, i) => {
+                        // compute the actual index in the products array for this right-side card
+                        const productIndex = (index + 1 + i) % products.length;
+                        return (
+                            <div
+                                key={p.id}
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => handleSelect(productIndex)}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(productIndex); }}
+                                className={`side-card ${animating ? "side-zoom-out" : "side-zoom-in"}`}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <div className="side-card-left" style={{ backgroundColor: p.bg }}>
+                                    <img src={p.img} alt={p.title} className="side-card-left-img" />
+                                </div>
+
+                                <div className="side-card-right">
+                                    <h5 className="side-title">{p.title}</h5>
+                                    <div className="rating">{
+                                        // simple star rating visual — replace with dynamic value if available
+                                        <>
+                                            <span className="stars">★★★★☆</span>
+                                            <span className="rating-count">&nbsp;4.5</span>
+                                        </>
+                                    }</div>
+                                    <p className="price">₹{p.price}</p>
+                                </div>
+
+                                <button className="add-btn" aria-label={`Add ${p.title}`} onClick={(e) => { e.stopPropagation(); /* placeholder add action */ }}>
+                                    +
+                                </button>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
 
