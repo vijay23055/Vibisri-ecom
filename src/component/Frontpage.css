@@ -10,32 +10,37 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    margin-left: 100px;
+  
 }
 .front-logo{
     display: flex;
-    flex: 1;  
+    flex: 1; 
+    align-items: center;
+    justify-content: center; 
 }
 .logo-btn{
   margin-left: 150px;
   background-color: transparent;
-  height: 56px;
-    object-fit: cover;
-    object-position: center;
-    overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+  max-width: 120px;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
 }
 .navigate-path{
-    justify-content: center;
+  justify-content: space-evenly;
     flex: 1;
-    display: flex;
+    margin-left: 155px;
+    display: flex
+;
     
 }
 .navigate-listitem{
     background: #FFFFFF33;
-    
     display: flex;
     justify-content: space-between;
-    border: 2px solid rgba(255, 255, 255, 0.6) ;
+    border: 2.3px solid rgba(255, 255, 255, 0.6) ;
     border-radius: 23px;
     padding: 9px;
     gap: 10px;
@@ -43,6 +48,7 @@
 }
 .navigate-Links{
     color: white;
+    
     font-size: 10px;
     text-decoration: none;
     padding: 8px;
@@ -62,22 +68,36 @@
     margin-left: 30px;
 }
 
-.list-icon{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 52px;
-    gap: 15px
+.list-icon {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
 }
-.icon-color svg{
-    /* background-color: grey; */
-    color: rgb(250, 248, 248);
+
+.icon-button {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
-.icon-color svg:hover{
-    /* background-color:  rgb(250, 248, 248); */
-    color: black;
-    cursor: pointer;
+
+/* .icon-button:hover {
+  background-color: #e53935;
+} */
+
+.icon-button svg {
+  color: black;
+  font-size: 15px;
 }
+
 
 
 .hero-card {
@@ -150,6 +170,29 @@
   cursor: pointer;
   font-size: 15px;
   box-shadow: 0 6px 18px rgba(15,15,15,0.06);
+}
+
+.social-icons{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.icon-circle {
+  background-color: white;
+  border-radius: 50%;
+  font-size: 23px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 /* CENTER */

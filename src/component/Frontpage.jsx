@@ -11,6 +11,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import Chilli from "../PNG/Chillipowder.png"
 import Vallar from "../PNG/Vallarai.png"
 import Chicken65 from "../PNG/Chicken65.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import {
+    faSearch,
+    faHeart,
+    faShoppingCart,
+    faUser
+  } from '@fortawesome/free-solid-svg-icons';
+// import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+// import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+// import MailIcon from '@mui/icons-material/Mail';
 
 import "./Frontpage.css"
 const Frontpage = () => {
@@ -94,18 +106,25 @@ const Frontpage = () => {
                 </div>
                 <div className="navigate-icon">
                     <div className="list-icon">
-                        <IconButton className='icon-color'>
-                            <SearchIcon />
-                        </IconButton>
-                        <IconButton className='icon-color'>
-                            <FavoriteBorderIcon />
-                        </IconButton>
-                        <IconButton className='icon-color'>
-                            <ShoppingCartIcon />
-                        </IconButton>
-                        <IconButton className='icon-color'>
-                            <PersonOutlineIcon />
-                        </IconButton>
+
+                        <button className="icon-button">
+                            <FontAwesomeIcon icon={faSearch} />
+                        </button>
+                        <Link to="/wishlist" style={{ textDecoration: "none", color: "inherit" }}>
+                        <button className="icon-button">
+                            <FontAwesomeIcon icon={faHeart} />
+                        </button>
+                        </Link>
+                        <Link to="/add-to-cart" style={{ textDecoration: "none", color: "inherit" }}>
+                        <button className="icon-button">
+                            <FontAwesomeIcon icon={faShoppingCart} />
+                        </button>
+                        </Link>
+                        <Link to="/account" style={{ textDecoration: "none", color: "inherit" }}>
+                        <button className="icon-button">
+                            <FontAwesomeIcon icon={faUser} />
+                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -120,7 +139,22 @@ const Frontpage = () => {
                     <h1>{renderTitle(main.title)}</h1>
                     <p>{main.desc}</p>
                     <h2>₹{main.price}</h2>
-                    <button>Shop Now</button>
+                    <Link to="/product" style={{ textDecoration: "none", color: "inherit" }}>
+                    <button>Shop Now →</button>
+                    </Link>
+                    <div className="social-icons">
+                        <p>Follow Us ---</p>
+                        <div className="icon-circle">
+                            <FontAwesomeIcon icon={faInstagram} />
+                        </div>
+                        <div className="icon-circle">
+                            <FontAwesomeIcon icon={faWhatsapp} />
+                        </div>
+                        <div className="icon-circle">
+                            <FontAwesomeIcon icon={faEnvelope} />
+                        </div>
+                    </div>
+
                 </div>
 
                 {/* CENTER */}
@@ -164,10 +198,11 @@ const Frontpage = () => {
                                     }</div>
                                     <p className="price">₹{p.price}</p>
                                 </div>
-
+                                <Link to="/add-to-cart" style={{ textDecoration: "none", color: "inherit" }}>
                                 <button className="add-btn" aria-label={`Add ${p.title}`} onClick={(e) => { e.stopPropagation(); /* placeholder add action */ }}>
                                     +
                                 </button>
+                                </Link>
                             </div>
                         );
                     })}
