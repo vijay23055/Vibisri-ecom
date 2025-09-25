@@ -16,9 +16,9 @@ import "./Frontpage.css"
 const Frontpage = () => {
 
     const products = [
-        { id: 1, title: "South Spice Story", sideTitle: "South Spice Story", desc: "Flavors without compromise: South Indian Masala is the authentic taste of spices without additives.", price: 300, img: Chilli, bg: "#f5625d" },
-        { id: 2, title: "Vallari Rice powder", sideTitle: "Vallari Rice\npowder", desc: "Authentic Vallari rice taste...", price: 300, img: Vallar, bg: "#60c657" },
-        { id: 3, title: "Chicken 65", sideTitle: "Chicken 65", desc: "Healthy multigrain mix...", price: 300, img: Chicken65, bg: "#d0b36f" },
+        { id: 1, title: "Chilli Powder", sideTitle: "South Spice Story", desc: "Flavors without compromise: South Indian Masala is the authentic taste of spices without additives.", price: 300, img: Chilli, bg: "#f5625d" },
+        { id: 2, title: "Vallari Rice powder", sideTitle: "Insta Rice Powder", desc: "Quick Without Compromise: Instant Rice Powder brings authentic in mintues", price: 300, img: Vallar, bg: "#60c657" },
+        { id: 3, title: "Chicken 65", sideTitle: "Ready to Mix", desc: "Flavors without compromise: South Indian Masala is the authentic taste of spices without additives.", price: 300, img: Chicken65, bg: "#d0b36f" },
     ];
 
     const [index, setIndex] = useState(0);
@@ -34,7 +34,7 @@ const Frontpage = () => {
         }, 600); // match animation duration
     };
 
-    
+
     const handleUp = () => handleChange((index - 1 + products.length) % products.length);
     const handleDown = () => handleChange((index + 1) % products.length);
 
@@ -55,13 +55,13 @@ const Frontpage = () => {
         return (
             <>
                 <span className="title-line1">{first}</span>
-                
+
                 <span className="title-line2">{rest}</span>
             </>
         );
     };
 
-    
+
     const rightImages = [];
     for (let i = 1; i <= 3; i++) {
         rightImages.push(products[(index + i) % products.length]);
@@ -126,9 +126,12 @@ const Frontpage = () => {
                 {/* CENTER */}
                 <div className="center-side">
 
-                    <img src={main.img} alt={main.title}  className={`main-img ${animating ? "zoom-out" : "zoom-in"}`} />
-                    <button onClick={handleUp}>Up</button>
-                    <button onClick={handleDown}>Down</button>
+                    <img src={main.img} alt={main.title} className={`main-img ${animating ? "zoom-out" : "zoom-in"}`} />
+                    <div className="product-btn">
+                        <button className="product-bt" onClick={handleUp}>Up</button>
+                        <button className="product-bt" onClick={handleDown}>Down</button>
+                    </div>
+
                 </div>
 
                 {/* RIGHT SIDE*/}
