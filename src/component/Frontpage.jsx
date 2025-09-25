@@ -128,8 +128,8 @@ const Frontpage = () => {
 
                     <img src={main.img} alt={main.title} className={`main-img ${animating ? "zoom-out" : "zoom-in"}`} />
                     <div className="product-btn">
-                        <button className="product-bt" onClick={handleUp}>Up</button>
-                        <button className="product-bt" onClick={handleDown}>Down</button>
+                        <button className="product-bt" onClick={handleUp}>← </button>
+                        <button className="product-bt" onClick={handleDown}>→ </button>
                     </div>
 
                 </div>
