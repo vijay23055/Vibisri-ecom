@@ -206,6 +206,13 @@ const Frontpage = () => {
                             </div>
                         );
                     })}
+                    <div className="product-explore">
+                        <h5>Ready to More Spicy Store</h5>
+                        <p>Get your taste buds ready</p>
+                        <Link to="/product" style={{ textDecoration: "none", color: "inherit" }}>
+                            <button>Explore More →</button>
+                        </Link>
+                    </div>
                 </div>
 
 

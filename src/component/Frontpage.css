@@ -165,11 +165,21 @@
   padding: 10px 18px;
   background-color: #fff;
   border: none;
+  will-change: transform;
+  position: relative;
   border-radius: 26px;
   color: #111;
   cursor: pointer;
   font-size: 15px;
-  box-shadow: 0 6px 18px rgba(15,15,15,0.06);
+ 
+}
+.left-side button:hover {
+  background-image: linear-gradient(to bottom right, #ef3535e6, #868383e6);
+  color: #fff;
+  padding: 10px 18px;
+  border: 2px solid white;
+  border-radius: 26px;
+  /* transform: translateY(-6px); */
 }
 
 .social-icons{
@@ -249,8 +259,8 @@
   justify-content: end;
   align-items: center;
   padding: 20px;
-  gap: 50px;
-  margin-bottom: 80px
+  gap: 15px;
+
 }
 
 
@@ -331,12 +341,56 @@
   line-height: 1;
 }
 
-/* .right-side .side-card:active,
-.right-side .side-card:focus {
-  transform: translateY(2px);
-  box-shadow: 0 8px 22px rgba(15,15,15,0.12);
-} */
+.product-explore{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 330px;
+  object-fit: cover;
+}
 
+.product-explore h5{
+  font-family: Fredoka One, cursive;
+  font-weight: 400;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 32px;
+  color: var(--White-Color, rgba(255, 255, 255, 1));
+  margin-right: -100px;
+  line-height: 1.2;
+}
+.product-explore p{
+  font-family: Fredoka One, cursive;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+  color: var(--White-Color, rgba(255, 255, 255, 1));
+}
+
+.product-explore button{
+  font-family: Fredoka One, cursive;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+  color: var(--White-Color, rgba(255, 255, 255, 1));
+}
+.product-explore:hover button{
+  background-image: linear-gradient(to bottom right, #f22a2ae6, #d3cacae6);
+  /* color: linear-gradient(to bottom right, #ef3535e6, #868383e6); */
+  border: 2px solid white;
+  padding: 10px 8px 10px 8px;
+  border-radius: 30px;
+  /* box-shadow: 10px 10px 0px rgb(251, 250, 250); */
+  transform: translateY(-6px);
+}
 
 
 /* Main image animation */
