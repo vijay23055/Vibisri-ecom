@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import logo from '../PNG/Logo.webp'
 import { Link } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Chilli from "../PNG/Chillipowder.png"
 import Vallar from "../PNG/Vallarai.png"
 import Chicken65 from "../PNG/Chicken65.png"
+import DiscountStar from "../assets/icons/star.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -57,6 +58,37 @@ const Frontpage = () => {
     };
 
     const main = products[index];
+    const mainImgRef = useRef(null);
+
+    useEffect(() => {
+        let rafId = null;
+
+        function onScroll() {
+            if (!mainImgRef.current) return;
+            if (rafId) cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(() => {
+                    const wrapper = mainImgRef.current;
+                    if (!wrapper) return;
+                    const rect = wrapper.getBoundingClientRect();
+                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                    // compute offset of wrapper center relative to viewport center
+                    const wrapperCenter = rect.top + rect.height / 2;
+                    const viewportCenter = windowHeight / 2;
+                    const delta = wrapperCenter - viewportCenter; // px
+                    // translate by a fraction of that delta for parallax effect
+                    const amt = Math.max(-60, Math.min(60, -delta * 0.08)); // clamp -60..60
+                    wrapper.style.transform = `translateY(${amt}px)`;
+                });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        // initial position
+        onScroll();
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, [index]);
 
     const renderTitle = (title) => {
         const parts = title.split(' ');
@@ -79,9 +111,21 @@ const Frontpage = () => {
         rightImages.push(products[(index + i) % products.length]);
     }
 
+    // ticker items for header marquee
+    const tickerItems = [
+        'Steady Energy Throughout Your Day ⚡',
+        'Boosts Immunity 🛡️',
+        'Naturally High in Dietary Fiber 🌾',
+        'Smooth Digestion 🌀',
+        'Low Glycemic Ingredients 🍑',
+        'Balanced Nutrition ⚖️',
+    ];
+
 
     return <>
         <div className="front-conatiner" >
+            {/* running ticker */}
+           
 
             {/* Navbar */}
             <div className="header">
@@ -128,6 +172,21 @@ const Frontpage = () => {
                     </div>
                 </div>
             </div>
+            <div className="header-ticker" aria-hidden="true">
+                <div className="ticker-track">
+                    <div className="ticker-group">
+                        {tickerItems.map((text, i) => (
+                            <span className="ticker-item" key={i}>{text}</span>
+                        ))}
+                    </div>
+                    {/* duplicate group for seamless looping */}
+                    <div className="ticker-group" aria-hidden="true">
+                        {tickerItems.map((text, i) => (
+                            <span className="ticker-item" key={"dup-" + i}>{text}</span>
+                        ))}
+                    </div>
+                </div>
+            </div>
 
             {/* Hero-Item */}
 
@@ -142,6 +201,7 @@ const Frontpage = () => {
                     <Link to="/product" style={{ textDecoration: "none", color: "inherit" }}>
                     <button>Shop Now →</button>
                     </Link>
+                    {/* discount star (PNG) - moved to center-side for positioning */}
                     <div className="social-icons">
                         <p>Follow Us ---</p>
                         <div className="icon-circle">
@@ -159,11 +219,18 @@ const Frontpage = () => {
 
                 {/* CENTER */}
                 <div className="center-side">
-
-                    <img src={main.img} alt={main.title} className={`main-img ${animating ? "zoom-out" : "zoom-in"}`} />
-                    <div className="product-btn">
-                        <button className="product-bt" onClick={handleUp}>← </button>
-                        <button className="product-bt" onClick={handleDown}>→ </button>
+                    <div className="center-inner" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <div className="main-img-wrap" ref={mainImgRef}>
+                            <img src={main.img} alt={main.title} className={`main-img ${animating ? "zoom-out" : "zoom-in"}`} />
+                            <div className="discount-star" aria-hidden="true">
+                                <img src={DiscountStar} alt="25% off" className="discount-star-img" />
+                                <div className="discount-label">₹25%<small>OFF</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product-nav-vertical" aria-hidden="false">
+                        <button className="product-nav-btn up" onClick={handleUp} aria-label="Previous product">▲</button>
+                        <button className="product-nav-btn down" onClick={handleDown} aria-label="Next product">▼</button>
                     </div>
 
                 </div>
