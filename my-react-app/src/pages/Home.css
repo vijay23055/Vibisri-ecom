@@ -1,0 +1,1743 @@
+/* === Font Import for Vintage Logo === */
+@font-face {
+  font-family: "Veneer";
+  src: url("./assets/Veneer.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* === CSS Variables: Global Colors === */
+:root {
+  --sienna: #b1560e;
+  --sienna-2: #92633a;
+  --white: #ffffff;
+  --black: #000000;
+  --tan: #c19f7a;
+  --papaya-whip: #eae0c7;
+}
+
+/* === Global Reset === */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* === Body Styling === */
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: var(--papaya-whip);
+  color: var(--black);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center all content horizontally */
+}
+
+
+
+/* === Header Bar === */
+header {
+  position: sticky; /* sticks to top on scroll */
+  top: 40px;
+  z-index: 999;
+  background-color: var(--papaya-whip);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Bottom border animation (controlled via JS) */
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: var(--border-width);
+  background-color: var(--tan);
+}
+
+/* Header content layout */
+.header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo Text */
+.logo {
+  font-family: "Veneer", serif;
+  font-weight: 100;
+  font-size: 2.5rem;
+  color: var(--sienna);
+  letter-spacing: 1px;
+}
+
+.logo-img {
+  height: 56px;
+  display: block;
+}
+
+/* Site brand (logo + name) */
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.site-name {
+  font-family: 'Veneer', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-weight: 700;
+  color: var(--sienna-2);
+  letter-spacing: 0.6px;
+  font-size: 2.05rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-btn, .profile-btn {
+  /* remove circular look and show icon clearly */
+  min-width: 36px;
+  height: auto;
+  padding: 6px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--sienna-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-btn:hover, .profile-btn:hover {
+  background: rgba(146,99,58,0.06);
+  color: var(--sienna-2);
+}
+
+/* Center the desktop nav inside the header-inner */
+.desktop-nav {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* Ensure SVG icons inherit currentColor so they're visible */
+.header-actions svg, .search-btn svg, .profile-btn svg {
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Slide-out search panel placed near the start of the nav. When open it expands */
+.search-panel {
+  position: relative;
+  width: 0;
+  max-width: 420px;
+  overflow: hidden;
+  transition: width 220ms ease, opacity 180ms ease;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 8px;
+}
+.search-panel.open {
+  width: 360px;
+  opacity: 1;
+}
+.search-input {
+  flex: 1 1 auto;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 10px;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255,255,255,0.9);
+  color: #222;
+}
+.search-close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px;
+}
+
+/* Desktop Nav Menu */
+nav {
+  display: flex;
+  gap: 2.5rem;
+}
+
+/* Nav Link Styling */
+nav a {
+  font-weight: bold;
+  color: var(--sienna);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--black);
+}
+
+/* Hamburger Icon (hidden by default) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 26px;
+  height: 3px;
+  background: var(--black);
+}
+
+/* Mobile Nav Menu */
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  background: var(--sienna);
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--tan);
+}
+
+.mobile-nav a {
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  color: var(--papaya-whip);
+  text-decoration: none;
+}
+
+.mobile-nav a:hover {
+  color: var(--sienna);
+}
+
+/* === Main Content Wrapper === */
+main {
+  padding-left: 180px; /* space for fixed social sidebar */
+  position: relative;
+}
+
+/* === Vertical Social Media Sidebar === */
+/* Compact numbered sidebar (logo + vertical numbers + labels + emoji stack) */
+.social-sidebar {
+  position: fixed;
+  left: 0;
+  top: 110px; /* previously 150px — moves it closer to header */
+  width: 160px; /* previously 200px — narrower */
+  height: calc(100vh - 130px);
+  background: var(--papaya-whip);
+  border-right: 1px solid rgba(146, 99, 58, 0.12);
+  z-index: 999;
+  padding-top: 8px;
+  overflow: visible;
+  transition: all 0.3s ease;
+}
+
+/* Sidebar right border animation */
+.social-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: var(--border-height);
+  width: 1px;
+  background-color: var(--tan);
+}
+
+/* Sticky icon stack */
+.social-sidebar nav {
+  position: sticky;
+  top: 6rem; /* stays centered as you scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 0.5rem;
+}
+
+/* Individual Social Icons */
+.social-sidebar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  border: none; /* remove circular border */
+  border-radius: 8px; /* subtle rounded rect if needed */
+  background: transparent;
+  color: var(--sienna);
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.social-sidebar a:hover {
+  background-color: rgba(146,99,58,0.06);
+  color: var(--sienna-2);
+  transform: translateX(4px);
+}
+
+.social-sidebar svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  margin-right: 8px;
+}
+
+/* === Responsive Sidebar Behavior for Mobile === */
+@media (max-width: 768px) {
+  main {
+    padding-left: 0;
+  }
+
+  .social-sidebar {
+    position: sticky;
+    top: unset;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+  }
+
+  .social-sidebar nav {
+    position: relative;
+    top: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-sidebar::after {
+    width: 100%;
+    height: 1px;
+  }
+}
+
+/* === Footer Section === */
+footer {
+  background: var(--sienna-2);
+  color: var(--white);
+  padding: 3rem 2rem;
+  min-height: 50vh;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+/* Logo inside footer */
+.footer-logo {
+  font-family: "Veneer", serif;
+  font-size: 1.5rem;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+/* Link and Contact Groups */
+.footer-links,
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a,
+.footer-contact a {
+  color: var(--papaya-whip);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-contact a:hover {
+  color: var(--tan);
+}
+
+/* === Responsive Header Behavior === */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-nav.show {
+    display: flex;
+  }
+}
+
+/* === Hero Section === */
+.hero {
+  position: relative;
+  min-height: calc(100vh - 120px); /* Adjusted for header + announcement bar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--papaya-whip);
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  
+  
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 2rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content {
+    max-width: none;
+    width: auto;
+  }
+}
+
+/* Big Heading Animation Target */
+.hero-content h1 {
+  font-family: "Veneer", serif;
+  font-weight: 500;
+  font-size: clamp(6rem, 18rem, 14rem);
+  text-transform: uppercase;
+  margin-left: 27%; /* 🔹 slightly more to the right (was 25%) */
+  margin-top: 110px; /* 🔹 moves heading a bit downward */
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--sienna);
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+  transform: translateX(20px); /* 🔹 adds subtle right offset */
+}
+
+
+
+.line {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.highlight {
+  display: inline-block;
+  position: relative;
+  margin-left: 10%;
+}
+.main-heading {
+  margin-top: -90%;
+}
+
+.hero-content .line {
+  display: block;
+}
+
+/* Bottle wrapper for scroll animation */
+.hero-bottle-wrapper {
+  position: absolute;
+  left: 0;
+  top: -15%; /* Adjust as needed */
+  height: 45rem; /* Adjust as needed */
+  width: 75%;
+  z-index: 4;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bottle {
+    position: absolute;
+    left: 0;
+    right: 25%;
+    top: 65%;
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+    filter: drop-shadow(8px 8px 12px rgba(0, 0, 0, 0.15));
+    transition: filter 0.3s 
+ease;
+}
+.hero-stamp {
+  position: absolute;
+  left: 90%;
+  top: 20%;
+  right: 0;
+  z-index: 5;
+  transform: translate(-50%, -50%) rotate(-20deg) scale(100);
+  opacity: 0;
+  max-width: 150px;
+  filter: brightness(0.5);
+}
+
+/* === Responsive Hero Section === */
+@media (max-width: 768px) {
+  .hero {
+    min-height: calc(30rem - 80px);
+  }
+
+  .hero-bottle-wrapper {
+    height: 25rem;
+  }
+
+  .hero-stamp {
+    max-width: 100px;
+  }
+
+  .hero-content h1 {
+    font-size: 15vw;
+  }
+}
+
+/* === Intro Section (below hero) === */
+.section-intro {
+  background-color: var(--papaya-whip);
+  border-top: 1px solid var(--tan);
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* === Intro Section Grid Layout === */
+.intro-grid {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  justify-content: space-between;
+}
+
+/* Left and Right Columns in Intro Section */
+.intro-left,
+.intro-right {
+  max-width: 30%;
+}
+
+/* Section Label Above Main Heading */
+.small-title {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--sienna-2);
+  margin-bottom: 1rem;
+}
+
+/* Main Heading: Heritage Line */
+.main-heading {
+  font-family: "Veneer", serif;
+  font-weight: 100;
+  font-size: 4.5rem;
+  line-height: 1.2;
+  color: var(--sienna);
+  margin-bottom: 1.5rem;
+}
+
+/* Intro Paragraph Description */
+.description {
+  font-size: 1.05rem;
+  color: var(--black);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Call-to-Action Button */
+.cta-box {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--sienna);
+  background-color: var(--sienna);
+  color: var(--papaya-whip);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cta-box:hover {
+  background-color: var(--papaya-whip);
+  color: var(--sienna);
+}
+
+/* === Responsive Intro Section === */
+@media (max-width: 768px) {
+  .intro-grid {
+    text-align: center;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  .intro-left,
+  .intro-right {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .intro-left {
+    padding-right: 0;
+  }
+
+  .main-heading {
+    font-size: 2.5rem;
+  }
+}
+
+/* === Ingredients Log Container === */
+.ingredients-log {
+  background: transparent;
+  padding: 1rem 0;
+}
+
+/* Ingredients Section Title */
+.ingredients-title {
+  font-family: "Veneer", serif;
+  font-size: 1.75rem;
+  color: var(--sienna);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+/* Single Ingredient Entry Layout */
+.ingredient-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Quantity Value (e.g. 500ml) */
+.ingredient-qty {
+  font-family: "Veneer", serif;
+  font-size: 2.5rem;
+  color: var(--sienna-2);
+  min-width: 90px;
+  text-align: left;
+  line-height: 1;
+}
+
+/* Textual Description of Ingredient */
+.ingredient-text {
+  max-width: 400px;
+}
+
+.ingredient-text strong {
+  font-family: "Veneer", serif;
+  font-size: 1.2rem;
+  color: var(--sienna);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.ingredient-text p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--black);
+  margin: 0;
+}
+
+/* === Responsive Ingredients Layout === */
+@media (max-width: 768px) {
+  .ingredient-item {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .ingredient-qty {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .ingredient-text {
+    max-width: 100%;
+  }
+
+  .ingredients-title {
+    text-align: center;
+    font-size: 2.5rem;
+  }
+}
+
+/* === Timeline Section === */
+.timeline-section {
+  padding: 6rem 0rem 3rem;
+  border-top: 1px solid var(--tan);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+/* Each Timeline Entry Block */
+.timeline-entry {
+  margin: 0;
+  padding: 0 2rem 0;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  min-height: 600px;
+  max-width: 70%;
+}
+
+/* Alternate Entry Layout (odd/even) */
+.timeline-entry:nth-child(odd) {
+  margin-left: auto;
+}
+
+.timeline-entry:nth-child(odd) .timeline-left {
+  order: 2;
+}
+
+.timeline-entry:nth-child(odd) .timeline-right {
+  order: 1;
+}
+
+.timeline-entry:nth-child(even) {
+  margin-right: auto;
+}
+
+.timeline-entry:last-child {
+  margin-bottom: 0rem;
+}
+
+/* Main Section Title (Big Year Heading) */
+.timeline-main-title {
+  padding: 0 2rem 0rem;
+  font-weight: 100;
+  font-family: "Veneer", serif;
+  font-size: 10rem;
+  line-height: 1.2;
+  color: var(--sienna);
+  margin-bottom: 2.5rem;
+}
+
+/* Left Side of Timeline: Year + Image */
+.timeline-left {
+  flex: 0 0 300px;
+  text-align: center;
+}
+
+.timeline-date {
+  font-family: "Veneer", serif;
+  font-size: 4rem;
+  color: var(--sienna);
+  line-height: 1;
+  transform: translateY(30px); /* initial offset for animation */
+}
+
+.timeline-img {
+  width: 100%;
+  max-width: 240px;
+  border: 3px solid var(--sienna-2);
+  padding: 0.5rem;
+  background-color: var(--papaya-whip);
+  box-shadow: 4px 4px 0 var(--sienna);
+}
+
+/* Right Side of Timeline: Text Content */
+.timeline-right {
+  flex: 1;
+  max-width: 400px;
+}
+
+.timeline-title {
+  font-family: "Veneer", serif;
+  font-size: 2rem;
+  color: var(--sienna-2);
+  margin-bottom: 1rem;
+}
+
+.timeline-description {
+  font-size: 1.05rem;
+  color: var(--black);
+  line-height: 1.6;
+}
+
+/* === Responsive Timeline Section === */
+@media (max-width: 768px) {
+  .timeline-section {
+    padding: 3rem 0rem 3rem;
+  }
+
+  .timeline-main-title {
+    font-size: 4rem;
+    text-align: center;
+  }
+
+  .timeline-entry {
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto 2rem;
+    gap: 1rem;
+    max-width: 100%;
+    min-height: unset;
+  }
+
+  .timeline-left {
+    margin-bottom: 2rem;
+  }
+
+  .timeline-title {
+    font-size: 1.5rem;
+  }
+
+  .timeline-date {
+    font-size: 3rem;
+  }
+
+  .timeline-entry:nth-child(odd) .timeline-right {
+    order: 2;
+  }
+}
+/* ... (Existing CSS content) ... */
+
+.third-section {
+  background-color: var(--papaya-whip);
+  padding: 6rem 0; /* Padding top/bottom */
+  border-top: 1px solid var(--tan);
+  position: relative;
+}
+
+.carousel-title {
+    font-family: "Veneer", serif;
+    font-size: 4rem;
+    color: var(--sienna);
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-top: -3rem;
+}
+
+.carousel-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* Removed padding here, handled by wrapper for full touch-scroll coverage */
+}
+
+.product-wrapper {
+    display: flex;
+    gap: 2rem;
+    overflow-x: scroll; /* Makes the product cards scrollable */
+    scroll-behavior: smooth; /* Smooth scrolling when using buttons/JS */
+    padding: 1rem 4rem; /* Adds padding on sides for cards to appear centered on large screens */
+    width: 100%; /* Ensures it fills the container */
+
+    /* Hide scrollbar */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.product-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.product-card-image {
+    flex: 0 0 auto; /* Prevents cards from shrinking */
+    width: 280px; /* Fixed width for each card */
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--papaya-whip);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    margin-left: auto; /* Add this line to push the image to the right */
+}
+
+
+
+.product-img-left {
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+    margin-left: -43%;
+}
+.product-img-right {
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+}
+.product-name {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: var(--sienna-2);
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+/* Scroll Buttons */
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: var(--sienna);
+  color: var(--white);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.scroll-button:hover {
+  opacity: 1;
+  background: var(--sienna-2);
+}
+
+.scroll-button.left {
+  left: 10px;
+}
+
+.scroll-button.right {
+  right: 10px;
+}
+.product-wrapper .product-card:nth-child(3) {
+    /* Add a large left margin to push the third card (Garam Masala) to the right */
+    margin-left: 250px; /* Adjust this value (e.g., 50px, 150px) to control the spacing */
+    /* The 2rem gap is still applied by the wrapper, so 100px is added to that. */
+}
+
+#whatsappFloat {
+  position: fixed;       /* Makes it float above content */
+  bottom: 20px;          /* Distance from bottom */
+  right: 20px;           /* Distance from right */
+  width: 60px;           /* Size of the button */
+  height: 60px;
+  z-index: 9999;         /* On top of all other elements */
+  cursor: pointer;
+  border-radius: 50%;    /* Makes it circular */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Subtle shadow */
+  transition: transform 0.3s; /* Scale on hover */
+}
+
+#whatsappFloat img {
+  width: 100%;           /* Fill the container */
+  height: 100%;
+  border-radius: 50%;
+}
+
+#whatsappFloat:hover {
+  transform: scale(1.1); /* Slight grow effect on hover */
+}
+
+/* === Responsive Layout Adjustments === */
+@media screen and (max-width: 768px) {
+  main {
+    margin-left: 0;
+    max-width: 100vw;
+    padding: 1rem;
+  }
+
+  .product-wrapper {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .product-wrapper .product-card:nth-child(3) {
+    margin-left: 0;
+  }
+}
+
+/* ================================================= */
+/* === STYLING FOR MODERN VINTAGE CATEGORY NAVIGATION === */
+/* ================================================= */
+
+/* Sticky Category Nav - Keep the wrapper structure */
+/* numbered nav layout */
+.category-nav a {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.5rem;
+  color: var(--sienna-2);
+}
+
+
+.category-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0.5rem;
+}
+
+.category-nav li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  position: relative; /* needed for active accent pseudo */
+}
+
+.category-nav .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 36px;
+  text-align: center;
+  color: var(--sienna);
+  font-weight: 700;
+  font-family: "Veneer", serif;
+  font-size: 0.98rem;
+  border: 1px solid rgba(146,99,58,0.12);
+  border-radius: 8px; /* changed from circle to rounded rectangle */
+  background: transparent;
+  padding: 4px 8px;
+  flex: 0 0 48px;
+}
+
+.category-nav .label {
+  display: inline-block;
+  color: var(--sienna-2);
+  text-decoration: none;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px; /* allow more room for label */
+}
+
+.category-nav li.active .label {
+  color: var(--sienna);
+  font-weight: 700;
+}
+
+/* small left accent for active item */
+.category-nav li.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 32px;
+  background: var(--sienna);
+  border-radius: 0 3px 3px 0;
+}
+
+/* Individual Category Links */
+.category-nav a {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    color: var(--sienna);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    padding: 0.5rem 0.75rem;
+    position: relative;
+    background: transparent;
+    white-space: nowrap;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+}
+
+/* Override old icon-only rules for anchors inside the numbered category nav */
+.social-sidebar .category-nav a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: auto !important;
+  height: auto !important;
+  border: none !important;
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0.4rem 0.5rem !important;
+}
+
+/* make sure the nav inside sidebar is not the small-circle sticky icon stack */
+.social-sidebar nav {
+  position: static !important;
+  top: auto !important;
+}
+
+.category-nav a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 0;
+    background: var(--sienna);
+    transform: translateY(-50%);
+    transition: height 0.2s ease;
+}
+
+/* Active and Hover States */
+.category-nav a.active {
+  color: var(--sienna);
+  font-weight: 700;
+  background: rgba(177, 86, 14, 0.05);
+  border-radius: 6px;
+}
+
+.category-nav a.active::before {
+    height: 100%;
+    width: 2px;
+}
+
+.category-nav a:hover {
+  color: var(--sienna);
+  transform: translateX(3px);
+}
+
+.category-nav a:hover::before {
+    height: 60%;
+    width: 2px;
+}
+
+/* emoji stack below menu */
+.emoji-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.emoji-stack .emoji {
+  padding: 8px 10px;
+  border-radius: 8px; /* no circle */
+  border: 1px solid rgba(146,99,58,0.12);
+  background: var(--papaya-whip);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.25rem; /* larger emoji */
+}
+
+.emoji-stack .emoji:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(146,99,58,0.08);
+}
+
+.sidebar-brand {
+  font-family: "Veneer", serif;
+  color: var(--sienna);
+  text-align: center;
+  font-size: 1rem;
+  padding: 0.5rem 0 0.5rem 0;
+}
+
+/* ensure page content leaves room for the sidebar */
+main {
+  margin-left: 140px !important;
+}
+
+/* sidebar brand */
+.sidebar-brand {
+  font-family: "Veneer", serif;
+  color: var(--sienna);
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 0.75rem 0;
+}
+
+/* ================================================= */
+/* === ANNOUNCEMENT BAR / MARQUEE STYLING === */
+/* ================================================= */
+
+.announcement-bar {
+  /* Positioning: Make it sticky at the very top */
+  position: sticky; /* <-- ADD THIS */
+  top: 0;           /* <-- ADD THIS */
+  z-index: 1000;    /* On top of everything */
+
+  /* Colors & Box Model */
+  background-color: var(--sienna); 
+  color: var(--white);
+  height: 40px; 
+  overflow: hidden; 
+  display: flex;
+  align-items: center;
+}
+
+.announcement-content {
+  /* Ensure content spans the full width of the bar */
+  width: 100%;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.marquee-text {
+  display: inline-block;
+  padding-left: 100%; /* Start the text off-screen to the right */
+  
+  /* Font & Text Style */
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  
+  /* Apply the animation */
+  animation: marquee 30s linear infinite; 
+}
+
+.offer {
+  margin-right: 4rem; /* Spacing between the individual offers */
+}
+
+/* Keyframes for the scrolling effect */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%); /* Scrolls the text fully left */
+  }
+}
+
+
+/* Add a rule to counteract the shift on smaller screens where space is limited */
+@media (max-width: 768px) {
+    .product-wrapper .product-card:nth-child(3) {
+        margin-left: unset; /* Removes the extra margin on mobile */
+    }
+}
+
+/* Responsive adjustments for buttons/carousel */
+@media (max-width: 1300px) {
+    .scroll-button.left {
+        left: 30px;
+    }
+
+    .scroll-button.right {
+        right: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-carousel-section {
+        padding: 4rem 0;
+    }
+
+    .carousel-title {
+        font-size: 2.5rem;
+    }
+
+    /* Remove wrapper padding on small screens for edge-to-edge scroll */
+    .product-wrapper {
+        padding: 1rem 2rem;
+    }
+
+    /* Hide buttons on small screens, encouraging native touch scroll */
+    .scroll-button {
+        display: none;
+    }
+}
+
+/* ============================ */
+/* Strong overrides: Sidebar UI */
+/* Placed at EOF to ensure precedence over earlier duplicate rules */
+.social-sidebar a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 10px 12px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background: transparent !important;
+  color: var(--sienna-2) !important;
+}
+.social-sidebar a svg {
+  width: 22px !important;
+  height: 22px !important;
+  margin-right: 10px !important;
+}
+.category-nav .num {
+  border-radius: 8px !important;
+  width: 48px !important;
+  height: 36px !important;
+  padding: 4px 10px !important;
+  font-size: 0.98rem !important;
+}
+.emoji-stack .emoji {
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+  font-size: 1.25rem !important;
+}
+
+/* ============================ */
+/* Force logo (site-brand) to the left edge of the viewport */
+header {
+  /* ensure header is the positioning ancestor */
+  position: sticky;
+  top: 40px;
+  z-index: 999;
+}
+.site-brand {
+  position: absolute;
+  left: -7%; /* distance from the very left edge */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1100;
+}
+.header-inner {
+  /* leave space on the left so centered content doesn't overlap the brand */
+  padding-left: 180px;
+  padding-right: 180px; /* leave room on right for header-actions */
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  /* revert for small screens: keep brand inside the normal flow */
+  .site-brand {
+    position: relative;
+    left: 0;
+    transform: none;
+  }
+  .header-inner { 
+    padding-left: 2rem; 
+    padding-right: 2rem; 
+  }
+}
+/* src/styles.css */
+.feature-product-section {
+  padding: 2rem;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 2%;
+}
+
+.feature-title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.product-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.card-left {
+  position: relative;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-img-feature {
+  width: 100%;
+  height: auto;
+}
+
+.nav-btn {
+  background-color: #ff6347;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev {
+  left: 1rem;
+}
+
+.next {
+  right: 1rem;
+}
+
+.card-right {
+  width: 50%;
+  padding: 1rem;
+}
+
+.product-name, .release-date, .product-description {
+  transition: opacity 0.3s ease-in-out;
+}
+/* Contact Section */
+.contact-section {
+  margin-top: 40px;
+  background-color: #f2732afb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.form-group {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #333;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background-color: #218838;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f3ede2;
+  color: #333;
+}
+
+/* 🔴 Offer strip */
+.offer-strip {
+  background: #d32f2f;
+  color: #fff;
+  font-weight: 500;
+  padding: 6px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* 🧭 Navbar */
+.navbar {
+  background: #f8f5ef;
+  border-bottom: 1px solid #e0dcd3;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logo span {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+}
+
+.nav-links li.active {
+  border-bottom: 2px solid #d32f2f;
+}
+
+.nav-icons {
+  display: flex;
+  gap: 16px;
+  font-size: 1.2rem;
+}
+
+/* 🏷️ Breadcrumb + title */
+
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 20px;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 10px 0 20px;
+}
+
+/* 🔍 Search + Category Tabs */
+.search-category {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-category input {
+  padding: 10px 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 260px;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #d32f2f;
+  color: #fff;
+}
+
+/* 🧱 Layout grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 24px;
+}
+
+/* 📋 Sidebar filters */
+.sidebar {
+  background: #f9f6f0;
+  border-radius: 8px;
+  padding: 18px;
+  font-size: 0.9rem;
+  border: 1px solid #e0dcd3;
+}
+
+.filter-group {
+  margin-bottom: 18px;
+}
+
+.quantity-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.quantity-buttons button {
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* 🛍️ Product grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+/* 🪩 Product Card */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform .2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card-image {
+  position: relative;
+  height: 230px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+}
+
+.card-icons {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  border: none;
+  background: #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: #eee;
+}
+
+.card-info {
+  padding: 10px 14px;
+}
+
+.card-info .category {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.card-info h3 {
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.price {
+  font-weight: 700;
+}
+
+/* 📱 Responsive */
+@media (max-width: 900px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+/* === Fix main content alignment next to sidebar === */
+.aligned-main {
+  margin-left: 200px; /* same width as your sidebar */
+  padding-left: 0;
+  background-color: var(--papaya-whip);
+}
+
+/* Remove duplicate or conflicting margins from inner sections */
+.aligned-main .hero,
+.aligned-main .section-intro,
+.aligned-main .third-section,
+.aligned-main .feature-product-section,
+.aligned-main .contact-section {
+  margin-left: 0;
+  padding-left: 3rem; /* gives breathing space near text */
+}
+
+/* Ensure full width on smaller screens */
+@media (max-width: 768px) {
+  .aligned-main {
+    margin-left: 0;
+    padding: 0 1rem;
+  }
+}

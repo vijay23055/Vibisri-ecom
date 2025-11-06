@@ -1,0 +1,582 @@
+.front-conatiner {
+  margin: 0;
+  /* bring the hero container a bit closer to the header */
+  padding: 60px 14px; /* smaller vertical padding so content sits higher */
+  background: radial-gradient(50% 50% at 50% 50%, #FF9999 0%, #E53935 100%);
+  min-height: 100vh;
+  margin-top: -40px; /* reduced negative offset to move container slightly up */
+}
+
+/* Global box-sizing and base rules to avoid overflow */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { overflow-x: hidden; }
+
+.header{
+  display: flex;
+  justify-content: center; /* center the navigation area */
+  align-items: center;
+  padding: 10px;
+  position: relative; /* allow absolute-positioned logo and icons */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* header ticker (continuous scrolling left-to-right) */
+.header-ticker{
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.ticker-track{
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  padding: 8px 20px;
+  /* make sure track is wide enough; we animate the whole track left by 50% */
+  animation: tickerMove 18s linear infinite;
+}
+.ticker-item{ color: white; font-weight: 600; margin-right: 24px; }
+.header-ticker:hover .ticker-track{ animation-play-state: paused; }
+
+@keyframes tickerMove{
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{ animation: none; }
+}
+.front-logo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute; /* pin logo to the left */
+    left: 18px;
+}
+.logo-btn {
+    margin-left: -65px;
+    background-color: transparent;
+    cursor: pointer;
+    width: auto;
+    max-width: 120px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+}
+.navigate-path {
+    justify-content: center; /* center the nav links */
+    flex: 0 1 auto;
+    display: flex;
+    gap: 18px;
+}
+.navigate-listitem{
+  background: #FFFFFF33;
+  display: flex;
+  justify-content: space-between;
+  border: 2.3px solid rgba(255, 255, 255, 0.6) ;
+  border-radius: 23px;
+  padding: 9px;
+  gap: 10px;
+  margin-inline-start: 0;
+}
+.navigate-Links{
+    color: white;
+    
+    font-size: 10px;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 23px;
+    transition: all 0.3s ease;
+}
+.navigate-Links:hover{
+    background: rgba(255, 255, 255, 1);
+    color: black;
+    padding: 8px;
+    border-radius: 23px;
+}
+
+.navigate-icon{
+  display: flex;
+  position: absolute; /* pin icons to the right */
+  right: 18px;
+  align-items: center;
+}
+
+.list-icon {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-button {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* hover rule intentionally removed to satisfy linter */
+
+.icon-button svg {
+  color: black;
+  font-size: 15px;
+}
+
+/* ensure borders are included in element size calculation */
+button, .icon-button, .product-bt, .add-btn {
+  box-sizing: border-box;
+}
+
+
+
+.hero-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* allow columns to wrap on small screens */
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 26px;
+  min-height: 700px;
+  /* small upward nudge so hero sits closer to header without changing inner paddings */
+  margin-top: -50px;
+}
+
+/* slightly smaller nudge on narrow screens so layout doesn't overlap the header */
+@media (max-width: 900px) {
+  .hero-card { margin-top: -6px; }
+}
+
+/* LEFT SIDE */
+.left-side {
+  flex: 1 1 320px; /* allow shrinking on narrow screens */
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+}
+
+.left-side h1 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 64px;
+  line-height: 0.98;
+  margin: 0 0 12px 0;
+  max-width: 820px;
+  color: #ebe5e5;
+}
+
+.left-side h1, .left-side p, .left-side h2 {
+  min-height: 20px 
+}
+
+.left-side .title-line1,
+.left-side .title-line2 {
+  display: block;
+}
+.left-side .title-line1 { font-size: 56px; font-weight:700; white-space: nowrap }
+.left-side .title-line2 { font-size: 56px; font-weight:700 }
+
+.left-side p {
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  color: #ebe5e5;
+  max-width: 360px;
+}
+
+.left-side h2 {
+  padding-right: 5px; 
+  font-size: 28px;
+  top: 224px;
+  color: #ebe5e5;
+  font-weight: 700;
+}
+
+.left-side button {
+  width: fit-content;
+  padding: 10px 18px;
+  background-color: #fff;
+  border: 2px solid transparent; /* keep border width constant to avoid layout shift */
+  will-change: transform;
+  position: relative;
+  border-radius: 26px;
+  color: #111;
+  cursor: pointer;
+  font-size: 15px;
+}
+.left-side button:hover {
+  background-image: linear-gradient(to bottom right, #ef3535e6, #868383e6);
+  color: #fff;
+  border-color: white; /* only change color, not width */
+}
+
+.social-icons{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Discount star */
+.discount-star{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0;
+}
+.discount-star-img{
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+  transform-origin: 50% 50%;
+  animation: spinStar 5s linear infinite;
+}
+
+/* overlay text centered on the star */
+.discount-star .discount-label{
+  position: absolute;
+  inset: 0; /* cover the star */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font-family: 'Fredoka One', cursive;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+.discount-star .discount-label small{
+  display: block;
+  font-size: 12px;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discount-star-img { animation: none; }
+}
+
+/* Keep main image visually dominant with a sticky container and parallax translate on scroll */
+.main-img-wrap{
+  position: sticky;
+  display: inline-block;
+  top: 120px; /* leaves space for header */
+  will-change: transform;
+  transition: transform 0.2s linear;
+}
+.main-img-wrap .discount-star{ position: absolute; left: 6px; bottom: 70px; transform: translate(0, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .main-img-wrap { transition: none; will-change: auto; }
+}
+
+@media (max-width: 900px) {
+  .main-img-wrap .discount-star{ left: 6px; bottom: 12px; }
+  .discount-star-img{ width: 80px; height: 80px; }
+  .discount-star .discount-label{ font-size: 14px; }
+}
+
+@keyframes spinStar{
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon-circle {
+  background-color: white;
+  border-radius: 50%;
+  font-size: 23px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* CENTER */
+.center-side {
+  flex: 1 1 360px; /* allow shrinking */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center main image vertically in its column */
+  padding: 10px;
+  position: relative;
+}
+
+/* vertical nav buttons placed beside the main image */
+.product-nav-vertical {
+  position: absolute;
+  right: auto; /* actual offset set relative to .center-side below */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 40;
+}
+
+.product-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffffee;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+  cursor: pointer;
+  font-size: 18px;
+  color: #222;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+.product-nav-btn:hover { transform: translateY(-4px); background: #fff; }
+
+/* tuck the nav near the right edge of the main image: position relative to center-side */
+.center-side .product-nav-vertical { right: -40px; }
+
+@media (max-width: 900px){
+  .product-nav-vertical { position: static; transform: none; flex-direction: row; gap: 16px; margin-top: 12px; }
+  .center-side .product-nav-vertical { right: auto; }
+}
+
+.center-side .main-img {
+  width: 100%;
+  max-width: 800px;
+  min-width: 0; /* allow image to shrink so it doesn't force horizontal scroll */
+  height: auto;
+  object-fit: contain;
+}
+.product-btn {
+  display: flex;
+  position: absolute;
+  bottom: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+}
+
+.product-bt {
+  padding: 0em 1.5em;
+  background-color: #f0f1f4;
+  border: none;
+  border-radius: 1000px;
+  font-size: 1.6rem;
+  color: #111; /* single consistent color */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-bt:hover {
+  background-image: linear-gradient(to bottom right, #ef3535e6, #868383e6);
+  color: #fff;
+  box-shadow: 10px 10px 0px rgba(203, 24, 24, 0.175);
+  transform: translateY(-6px);
+}
+
+.right-side { 
+  flex: 1 1 260px; /* allow shrinking */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* align items at bottom */
+  align-items: center;
+  padding: 16px;
+  gap: 12px;
+}
+
+
+.right-side .side-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 1px 9px;
+  border-radius: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 6px 18px rgba(15,15,15,0.06);
+  position: relative;
+  height: 140px;
+  width: 100%;
+  max-width: 222px;
+  overflow: hidden;
+}
+
+/* Responsive: stack hero columns on small screens */
+@media (max-width: 900px) {
+  .hero-card { flex-direction: column; align-items: center; }
+  .left-side, .center-side, .right-side { flex: 1 1 auto; max-width: 100%; }
+  .navigate-listitem { display: none; } /* hide big nav pills on narrow screens, optional */
+  .logo-btn { margin-left: 8px; }
+}
+
+.right-side .side-card-left {
+  width: 35%;
+  height: 70%;
+  position: relative;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px;
+  flex-shrink: 0;
+}
+
+.right-side .side-card-left-img {
+  width: 121%;
+  object-fit: contain;
+}
+
+.right-side .side-card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 12px;
+  min-height: 100px; /* ensures text doesn’t change card height */
+}
+
+.right-side .side-title {
+  font-size: 16px;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+  white-space: pre-line; /* honor newline characters in sideTitle */
+}
+
+.right-side .rating {
+  color: #f5b301;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.right-side .price {
+  font-size: 15px;
+  color: #222;
+  margin: 0;
+}
+
+.right-side .add-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.product-explore{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 330px;
+  object-fit: cover;
+}
+
+.product-explore h5{
+  font-family: Fredoka One, cursive;
+  font-weight: 400;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 32px;
+  color: var(--White-Color, rgba(255, 255, 255, 1));
+  margin-right: -100px;
+  line-height: 1.2;
+}
+.product-explore p{
+  font-family: Fredoka One, cursive;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+  color: var(--White-Color, rgba(255, 255, 255, 1));
+}
+
+.product-explore button{
+  font-family: Fredoka One, cursive;
+  border: 2px solid transparent; /* keep border width constant */
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+  color: var(--White-Color, rgba(255, 255, 255, 1));
+  padding: 8px 12px; /* consistent padding so hover won't change size */
+  border-radius: 30px;
+}
+.product-explore:hover button{
+  background-image: linear-gradient(to bottom right, #f22a2ae6, #d3cacae6);
+  border-color: white; /* only change color */
+  transform: translateY(-6px);
+}
+
+
+/* Main image animation */
+.zoom-out {
+  animation: zoomOut 0.6s forwards;  /* slower */
+}
+
+.zoom-in {
+  animation: zoomIn 0.6s forwards;   /* slower */
+}
+
+@keyframes zoomOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.5); opacity: 0; }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Right-side card animation */
+.side-zoom-out {
+  animation: sideZoomOut 0.5s forwards; /* slower */
+}
+
+.side-zoom-in {
+  animation: sideZoomIn 0.5s forwards; /* slower */
+}
+
+@keyframes sideZoomOut {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+
+@keyframes sideZoomIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
