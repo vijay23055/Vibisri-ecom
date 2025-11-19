@@ -1,5 +1,7 @@
 import React from 'react';
 import "./Blogpage.css";
+import Footer from './Footer';
+import Navbarblog from './Navbarblog';
 
 import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
@@ -124,15 +126,9 @@ const Blogpage = () => {
 
     return (
         <div
-            className="blogpage-container"
-            style={{
-                backgroundColor: "rgba(240, 235, 225, 1)",
-                height: "6847px",
-                width: "1728px",
-            }}
-        >
+            className="blogpage-container" >
             {/* Header */}
-            <header className="blogpage-header">
+            {/* <header className="blogpage-header">
                 <img className="logo-btn" src={"https://iili.io/KZb4n1t.png"} alt="vibiSri-logo" />
 
                 <Link to="/home" style={{ textDecoration: "none", color: "inherit" }}>
@@ -156,7 +152,8 @@ const Blogpage = () => {
                 </button>
 
                 <button className="subcribe-btn">Subscribe</button>
-            </header>
+            </header> */}
+            <Navbarblog/>
 
             {/* Main Content */}
             <div className="blog-content">
@@ -194,7 +191,7 @@ const Blogpage = () => {
                                 {section.items.map((item, idx) => (
                                     <div key={idx} className="blog-item">
                                         <h4 className='blog-item1'>{item.subtitle}</h4>
-                                        <p className='blog-item1'>{item.desc}</p>
+                                        <p className='blog-item12'>{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -305,6 +302,7 @@ const Blogpage = () => {
                 </div>
             </div>
             <SubscribeSection/>
+            <Footer />
         </div>
 
 

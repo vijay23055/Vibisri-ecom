@@ -1,22 +1,23 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useLayoutEffect } from "react";
 import { Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/ProductPage/Header";
 import OfferBanner from "../components/ProductPage/OfferBanner";
 import FilterSidebar from "../components/ProductPage/FilterSidebar";
 import ProductCard from "../components/ProductPage/ProductCard";
 import CartDrawer from "../components/ProductPage/CartDrawer";
-import { products, categories } from "../data/mockProducts";
+import { categories } from "../data/mockProducts";
 import { useToast } from "../hooks/use-toast";
-import { useEffect as useLayoutEffect } from "react";
+import { useShop } from "../context/ShopContext";
+import { ProductCardSkeleton } from "../components/ProductPage/ProductCard";
 
-
-
-const ProductsPage = () => {
+const ProductsPage = ({ onLoginClick }) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { cart, wishlist, products, addToCart, removeFromCart, addToWishlist, isInWishlist, cartCount, wishlistCount, updateCartQuantity, updateCartSize } = useShop();
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("MASALA");
-  const [cart, setCart] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [filters, setFilters] = useState({
     quantity: null,
@@ -30,45 +31,34 @@ const ProductsPage = () => {
     minRating: null,
   });
   useLayoutEffect(() => {
-  const style = document.createElement("style");
-  style.innerHTML = `
-    body, main {
-      display: block !important;
-      padding: 0 !important;
-      align-items: normal !important;
-      justify-content: normal !important;
-      background-color: #E8E0D5 !important;
-    }
+    const style = document.createElement("style");
+    style.innerHTML = `
+      body, main {
+        display: block !important;
+        padding: 0 !important;
+        align-items: normal !important;
+        justify-content: normal !important;
+        background-color: #E8E0D5 !important;
+      }
 
-    .social-sidebar {
-      display: none !important;
-    }
+      .social-sidebar {
+        display: none !important;
+      }
 
-    header {
-      position: relative !important;
-      top: 0 !important;
-    }
-  `;
-  document.head.appendChild(style);
-  return () => document.head.removeChild(style);
-}, []);
-
-
-  // Load cart & wishlist from localStorage
-  useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-    const savedWishlist = localStorage.getItem("wishlist");
-    if (savedCart) setCart(JSON.parse(savedCart));
-    if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+      header {
+        position: relative !important;
+        top: 0 !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
   }, []);
 
-  // Persist data
+  // Simulate loading
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }, [wishlist]);
+    const timer = setTimeout(() => setLoading(false), 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleFilterChange = (filterType, value) => {
     setFilters((prev) => ({
@@ -78,7 +68,8 @@ const ProductsPage = () => {
   };
 
   const handleAddToCart = (product) => {
-    if (!product.availability) {
+    const result = addToCart(product);
+    if (!result.success) {
       toast({
         title: "Out of Stock",
         description: `${product.name} is currently out of stock.`,
@@ -87,37 +78,15 @@ const ProductsPage = () => {
       return;
     }
 
-    const existingItem = cart.find((item) => item.id === product.id);
-    if (existingItem) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([
-        ...cart,
-        {
-          ...product,
-          quantity: 1,
-          selectedSize: product.quantity[0] || 50,
-          availableSizes: product.quantity,
-          originalPrice: product.price + 20,
-        },
-      ]);
-    }
-
     setIsCartOpen(true);
     toast({
-      title: "Added to Cart",
+      title: result.message,
       description: `${product.name} has been added to your cart.`,
     });
   };
 
   const handleRemoveFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
+    removeFromCart(productId);
     toast({
       title: "Removed from Cart",
       description: "Item has been removed from your cart.",
@@ -125,20 +94,16 @@ const ProductsPage = () => {
   };
 
   const handleAddToWishlist = (product) => {
-    const isInWishlist = wishlist.some((item) => item.id === product.id);
-    if (isInWishlist) {
-      setWishlist(wishlist.filter((item) => item.id !== product.id));
-      toast({
-        title: "Removed from Wishlist",
-        description: `${product.name} has been removed from your wishlist.`,
-      });
-    } else {
-      setWishlist([...wishlist, product]);
-      toast({
-        title: "Added to Wishlist",
-        description: `${product.name} has been added to your wishlist.`,
-      });
-    }
+    const result = addToWishlist(product);
+    toast({
+      title: result.message,
+      description: `${product.name} has been ${result.action === 'added' ? 'added to' : 'removed from'} your wishlist.`,
+    });
+  };
+
+  const handleViewProduct = (product) => {
+    if (!product || !product.id) return;
+    navigate(`/product-page/${product.id}`);
   };
 
   const filteredProducts = useMemo(() => {
@@ -156,16 +121,15 @@ const ProductsPage = () => {
 
   return (
     <div
-      className={`min-h-screen bg-[#E8E0D5] transition-opacity duration-300 ${
-        isCartOpen ? "opacity-50" : "opacity-100"
-      }`}
+      className="min-h-screen bg-[#E8E0D5]"
       style={{ maxWidth: "1728px", margin: "0 auto" }}
     >
       {/* Header + Offer Section */}
       <Header
-        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
-        wishlistCount={wishlist.length}
+        cartCount={cartCount}
+        wishlistCount={wishlistCount}
         onCartClick={() => setIsCartOpen(true)}
+        onLoginClick={onLoginClick}
       />
       <OfferBanner />
 
@@ -193,7 +157,7 @@ const ProductsPage = () => {
 
             {/* Search + Category Tabs */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <div className="relative w-64">
+              <div className="relative w-full max-w-[500px]">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
@@ -213,7 +177,7 @@ const ProductsPage = () => {
                     className={`rounded-lg px-4 py-1.5 text-xs font-medium transition-all ${
                       activeCategory === category.name
                         ? "bg-red-500 text-white shadow-md"
-                        : "bg-white text-gray-700 hover:bg-gray-100"
+                        : "bg-transparent border border-gray-300 hover:bg-gray-100"
                     }`}
                   >
                     {category.name}
@@ -225,21 +189,33 @@ const ProductsPage = () => {
             {/* Scrollable Product Grid */}
             <div className="flex-1 overflow-y-auto pr-2">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 justify-items-center px-6 pb-6">
-                {filteredProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className="bg-[#FAF6EF] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all duration-300 w-[250px] h-[320px] flex flex-col justify-between items-center overflow-hidden group"
-                  >
-                    <ProductCard
-                      product={product}
-                      onAddToCart={handleAddToCart}
-                      onAddToWishlist={handleAddToWishlist}
-                      isInWishlist={wishlist.some(
-                        (item) => item.id === product.id
-                      )}
-                    />
-                  </div>
-                ))}
+                {loading ? (
+                  // Skeleton Loading State
+                  Array.from({ length: 8 }, (_, i) => (
+                    <div
+                      key={i}
+                      className="bg-[#FAF6EF] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] transition-all duration-300 w-[250px] h-[320px] flex flex-col justify-between items-center overflow-hidden"
+                    >
+                      <ProductCardSkeleton />
+                    </div>
+                  ))
+                ) : (
+                  // Real Products
+                  filteredProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="bg-[#FAF6EF] rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.15)] transition-all duration-300 w-[250px] h-[320px] flex flex-col justify-between items-center overflow-hidden group"
+                    >
+                      <ProductCard
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                        onAddToWishlist={handleAddToWishlist}
+                        isInWishlist={isInWishlist(product.id)}
+                        onViewProduct={handleViewProduct}
+                      />
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -251,16 +227,8 @@ const ProductsPage = () => {
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         cartItems={cart}
-        onUpdateQuantity={(id, qty) =>
-          setCart(cart.map((p) => (p.id === id ? { ...p, quantity: qty } : p)))
-        }
-        onUpdateSize={(id, size) =>
-          setCart(
-            cart.map((p) =>
-              p.id === id ? { ...p, selectedSize: size } : p
-            )
-          )
-        }
+        onUpdateQuantity={updateCartQuantity}
+        onUpdateSize={updateCartSize}
         onRemove={handleRemoveFromCart}
       />
     </div>

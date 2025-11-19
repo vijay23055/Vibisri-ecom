@@ -7,6 +7,7 @@ import ProductCarousel from './ProductCarousel';
 import SubscribeSection from './SubscribeSection';
 
 
+
 // Register GSAP plugins globally onceS
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,9 +57,9 @@ const Home = () => {
   }
 ];
   const productsMain = [
-    <img src={"https://iili.io/KZDbHXa.png"}  className="product-img-left" />,
-    <img src=""  className="product-img" />,
-    <img src={"https://iili.io/KZDbJLJ.png"}  className="product-img-right" />
+    <img src={"https://iili.io/KZDbHXa.png"} className="product-img-left" />,
+    <img src="/images/product-placeholder.png" className="product-img" />,
+    <img src={"https://iili.io/KZDbJLJ.png"} className="product-img-right" />
   ];
   const scrollProducts = (direction) => {
     if (direction === 'left') {
@@ -76,104 +77,111 @@ const Home = () => {
   // ==========================
   // Initial Page Load Animations
   // ==========================
-  const runInitialAnimations = () => {
-    // Create a timeline with default easing
-    const onLoadTl = gsap.timeline({ defaults: { ease: "power2.out" } });
+const runInitialAnimations = () => {
+  const onLoadTl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    onLoadTl
-      // Animate header border width expansion
-      .to(
-        headerRef.current,
-        {
-          '--border-width': "100%",
-          duration: 3,
-        },
-        0
-      )
-      // Slide in desktop nav links only
-      .from(
-        ".desktop-nav a",
-        {
-          y: -100,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-        },
-        0
-      )
-      // Removed sidebar animation
-      // Fade in hero heading
-      .to(
-        ".hero-content h1",
-        {
-          opacity: 1,
-          duration: 1,
-        },
-        0
-      )
-      // Animate text stroke to solid color
-      .to(
-        ".hero-content h1",
-        {
-          delay: 0.5,
-          duration: 1.2,
-          color: "var(--sienna)",
-          "-webkit-text-stroke": "0px var(--sienna)",
-        },
-        0
-      )
-      // Slide in each line of the heading from the right
-      .from(
-        ".hero-content .line",
-        {
-          x: 100,
-          delay: 1,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-        },
-        0
-      )
-      // Reveal the bottle wrapper
-      .to(
-        ".hero-bottle-wrapper",
-        {
-          opacity: 1,
-          scale: 1,
-          delay: 1.5,
-          duration: 1.3,
-          ease: "power3.out",
-        },
-        0
-      )
-      // Pop-in stamp image with scaling
-      .to(
-        ".hero-stamp",
-        {
-          opacity: 1,
-          scale: 1,
-          delay: 2,
-          duration: 0.2,
-          ease: "back.out(3)",
-        },
-        0
-      )
-      // Subtle vibration/bounce effect on the stamp
-      .to(
-        ".hero-stamp",
-        {
-          y: "+=5",
-          x: "-=3",
-          repeat: 2,
-          yoyo: true,
-          duration: 0.05,
-          ease: "power1.inOut",
-        },
-        0
-      );
-  };
+  onLoadTl
+    // HEADER BORDER ANIMATION
+    .to(
+      headerRef.current,
+      {
+        '--border-width': "100%",
+        duration: 3,
+      },
+      0
+    )
+
+    // NAV ITEMS ANIMATION
+    .from(
+      ".desktop-nav a",
+      {
+        y: -100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      },
+      0
+    )
+
+    // HERO H1 FADE-IN (keeps original --sienna color)
+    .to(
+      ".hero-content h1",
+      {
+        opacity: 1,
+        duration: 1,
+      },
+      0
+    )
+
+    // SLIDE EACH LINE OF H1
+    .from(
+      ".hero-content .line",
+      {
+        x: 100,
+        delay: 1,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      },
+      0
+    )
+
+    // BOTTLE APPEAR
+    .to(
+      ".hero-bottle-wrapper",
+      {
+        opacity: 1,
+        scale: 1,
+        delay: 1.5,
+        duration: 1.3,
+        ease: "power3.out",
+      },
+      0
+    )
+
+    // ⭐ STAMP POP-IN ⭐
+    .to(
+      ".hero-stamp",
+      {
+        opacity: 1,
+        scale: 1,
+        delay: 2,
+        duration: 0.25,
+        ease: "back.out(3)",
+      },
+      0
+    )
+
+    // ⭐ AFTER STAMP POP-IN → CHANGE ONLY "Vibishri" TO GREEN ⭐
+    .to(
+      ".hero-content h1 .line:first-child",  // ONLY Vibishri
+      {
+        color: "var(--sienna-3)",            // your green color
+        "-webkit-text-stroke": "0px var(--sienna-3)",
+        duration: 1,
+      },
+      ">"  // run immediately after stamp pop-in
+    )
+
+    // OPTIONAL: STAMP BOUNCE EFFECT (after color change)
+    .to(
+      ".hero-stamp",
+      {
+        y: "+=5",
+        x: "-=3",
+        repeat: 2,
+        yoyo: true,
+        duration: 0.06,
+        ease: "power1.inOut",
+      },
+      ">"
+    );
+};
+
+
+
 
   // ==========================
   // Reusable Scroll-Based Animation Setup
@@ -246,7 +254,7 @@ const Home = () => {
           pin: heroBottleWrapperRef.current,
           animations: [
             { target: ".hero-bottle", vars: { rotate: 0, scale: 0.7 } },
-            { target: heroBottleWrapperRef.current, vars: { x: "35%"} },
+            { target: heroBottleWrapperRef.current, vars: { x: "30%", y:"95%"} },
           ],
           markers: false,
           headerOffset,
@@ -332,7 +340,7 @@ const Home = () => {
 
         <section className="hero vintage-hero">
           <div className="hero-content">
-            <img src={"https://iili.io/KZpO1kl.png"} alt="Crimson Fermentation Stamp" className="hero-stamp" />
+            <img src={"https://iili.io/Ky8yoS2.png"} alt="Crimson Fermentation Stamp" className="hero-stamp" />
             <h1>
               <span className="line">Vibishri</span>
               <span className="line highlight">Homemade</span>
@@ -399,7 +407,7 @@ const Home = () => {
           </div>
         </section>
 
-        <section className="third-section">
+          <section className="third-section">
           <h2 className="carousel-title">Our Masala Range</h2>
           <div className="carousel-container">
             <button className="scroll-button left" onClick={() => scrollProducts('left')}>
@@ -419,6 +427,8 @@ const Home = () => {
             </button>
           </div>
         </section>
+
+        <div className="separator"></div>
         <div className="w-[90%] lg:w-[70%] mx-auto my-24">
             <ProductCarousel
                 products={[

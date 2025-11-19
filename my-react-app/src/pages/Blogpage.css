@@ -1,6 +1,8 @@
 /* === Blog Page Global Layout === */
 .blogpage-container {
   background-color: #f0ebe1;
+  height: 100%;
+  width: 1728px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,87 +10,21 @@
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
-  padding-bottom: 100px;
+  padding-bottom: 10px;
 }
 
-/* === Header Section === */
-.blogpage-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fffaf0;
-  border: 1px solid rgba(38, 37, 34, 0.24);
-  border-radius: 32px;
-  padding: 10px 30px;
-  width: 90%;
-  max-width: 1000px;
-  margin: 40px auto 0 auto;
-  position: relative;
-  z-index: 10;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-}
 
-.logo-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  max-width: 105px;
-}
-
-.blog-link {
-  margin: 0 10px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 15px;
-  color: #222;
-  text-transform: uppercase;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.blog-link:hover {
-  color: #ee6352;
-}
-
-.search-btn {
-  width: 40px;
-  height: 35px;
-  border-radius: 50%;
-  background: #f0ebe1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #333;
-  border: 1px solid rgba(38, 37, 34, 0.15);
-  transition: background 0.3s ease;
-}
-
-.search-btn:hover {
-  background: #eee;
-}
-
-.subcribe-btn {
-  padding: 8px 18px;
-  border-radius: 20px;
-  background: #000;
-  color: #fff;
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
-.subcribe-btn:hover {
-  background: #333;
-}
 
 /* === Content Section === */
 .blog-content {
-  margin-top: 50px;
-  background: #fffaf0;
-  border-radius: 32px;
-  border: 1px solid rgba(38, 37, 34, 0.2);
-  width: 90%;
-  max-width: 1000px;
-  padding: 50px 40px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 50px;
+    background: #fffaf0;
+    border-radius: 32px;
+    border: 1px solid rgba(38, 37, 34, 0.2);
+    width: 110%;
+    max-width: 1300px;
+    padding: 50px 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .blog-hero {
@@ -143,13 +79,17 @@
   color: #333;
 }
 
-/* === Hero Image === */
 .rec-logo {
+  width: 100%;
+  border-radius: 24px;
+}
+
+/* === Hero Image === */
+.rec-logo2 {
   width: 100%;
   max-width: 900px;
   height: auto;
   border-radius: 24px;
-  margin: 30px auto;
   display: block;
 }
 
@@ -167,6 +107,111 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  color: rgba(51, 51, 51, 0.8);
+
+}
+
+.blog-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  /* 700 means bold */
+  font-style: normal;
+  /* Use 'normal' instead of 'Bold' */
+  font-size: 24px;
+  line-height: 120%;
+  /* Equivalent to 1.2 */
+  letter-spacing: -0.01em;
+  /* -1% = -0.01em */
+
+}
+
+.blog-section-box h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  /* 600 = SemiBold */
+  font-style: normal;
+  /* 'SemiBold' is not valid; use normal */
+  font-size: 18px;
+  line-height: 100%;
+  /* or 1 for shorthand */
+  letter-spacing: 0.02em;
+  /* 2% ≈ 0.02em */
+  text-transform: uppercase;
+  color: rgba(238, 99, 82, 1);
+
+}
+
+.blog-item {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 15px;
+  line-height: 170%;
+  letter-spacing: 0.01em;
+}
+
+.blog-item1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 120%;
+  letter-spacing: 0.01em;
+  margin-top: 10px;
+}
+.blog-item2{
+  width: 320px;
+height: 40px;
+transform: rotate(0deg);
+opacity: 1;
+
+font-family: 'Montserrat', sans-serif;
+font-weight: 700; /* 700 = Bold */
+font-style: normal; /* 'Bold' is not valid */
+font-size: 40px;
+line-height: 100%; /* or 1 */
+letter-spacing: 0.01em; /* 1% ≈ 0.01em */
+text-transform: uppercase;
+color: rgba(51, 51, 51, 1);
+
+}
+
+.blog-item4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  /* 600 = SemiBold */
+  font-style: normal;
+  /* 'SemiBold' is not valid */
+  font-size: 18px;
+  line-height: 180%;
+
+  /* or simply 1 */
+  letter-spacing: 0.02em;
+  /* 2% ≈ 0.02em */
+  text-transform: uppercase;
+}
+
+.blog-item5{
+  font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 140%;
+    margin-left: 13px;
+    letter-spacing: 0.01em;
+
+}
+
+.blog-item12 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
+  margin-top: 5px;
+  color: rgba(51, 51, 51, 0.8);
+
 }
 
 .blog-feature-container {
@@ -192,6 +237,78 @@
   margin-bottom: 8px;
 }
 
+.icons {
+  display: flex;
+  width: 231px;
+  height: 48px;
+  transform: rotate(0deg);
+  opacity: 1;
+  border-radius: 24px;
+  border: 1px solid black;
+  gap: 19px;
+  padding: 12px 24px;
+  /* shorthand for top/bottom + left/right */
+}
+.icons p{
+  font-size: 17px;
+}
+.icon-img{
+  font-size: 21px;
+  margin-top: -3px;
+}
+.icon-img:hover{
+  
+  color: #ee6352;
+  cursor: pointer;
+}
+
+.blog-author{
+  display: flex;
+  width: 645px;
+height: 181px;
+transform: rotate(0deg);
+opacity: 1;
+gap: 16px;
+}
+.blog-author-pic{
+  width: 143px;
+  height: 163px;
+transform: rotate(0deg);
+opacity: 1;
+border-radius: 12px;
+background: rgba(217, 217, 217, 1);
+
+}
+.blog-author-info{
+  display: flex;
+    flex-direction: column;
+    width: 509px;
+    height: 181px;
+    transform: rotate(0deg);
+    opacity: 1;
+    gap: 15px;
+
+}
+
+.blog-reaadmore{
+    border: 1px solid black;
+    border-radius: 24px;
+    width: 107px;
+    height: 35px;
+    transform: rotate(0deg);
+    opacity: 1;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 190%;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    padding: 6px 9px 8px 9px;
+
+
+}
+
 .blog-feature-list {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
@@ -201,13 +318,13 @@
 
 /* === Similar Recipes Section === */
 .featured-section {
-  background: #fffaf0;
-  width: 90%;
-  max-width: 1000px;
-  margin: 80px auto 0 auto;
-  border: 1px solid rgba(38, 37, 34, 0.24);
-  border-radius: 24px;
-  padding: 30px;
+    background: #fffaf0;
+    width: 100%;
+    max-width: 1300px;
+    margin: 80px auto 0 auto;
+    border: 1px solid rgba(38, 37, 34, 0.24);
+    border-radius: 24px;
+    padding: 30px;
 }
 
 .header-wrapper {
@@ -272,6 +389,8 @@
 
 .recipe-card-content {
   padding: 20px;
+  background: rgba(255, 251, 242, 1);
+
 }
 
 .recipe-card-title {
@@ -291,13 +410,15 @@
 
 .view-recipe-btn {
   background: #262522;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s 
+ease;
 }
 
 .view-recipe-btn:hover {

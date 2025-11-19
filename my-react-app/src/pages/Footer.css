@@ -1,0 +1,84 @@
+.footer-body {
+    flex-direction: column;
+    width: 1350px;
+    max-height: 100px;
+    min-height: 30px;
+    transform: rotate(0deg);
+    opacity: 1;
+    /* position: absolute; */
+    /* top: 10493px; */
+    background: rgba(38, 37, 34, 1);
+    margin-top: 10px;
+    left: 71px;
+    border-radius: 32px;
+    display: flex;
+    gap: 15px;
+    padding-right: 40px;
+    padding-bottom: 24px;
+    padding-left: 40px;
+}
+.top{
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 1100px;
+    height: 20px;
+    margin-bottom: 20px;
+    transform: rotate(0deg);
+    opacity: 1;
+    position: absolute;
+    top: 16px;
+    left: 85px;
+    border-radius: 32px;
+    display: flex;
+    gap: 110px;
+
+}
+.footer-links{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+.footer-link{
+ color: #FFFFFF;
+ font-family: "Montserrat", sans-serif;
+}
+.footer-icons{
+    display: flex;
+    width: 200px;
+    height: 20px;
+    transform: rotate(0deg);
+    opacity: 1;
+    border-radius: 24px;
+    gap: 23px;
+    
+}
+
+.fotter-line{
+    width: 1120px;
+    height: 0.5px;
+    
+    background-color: #FFFFFF;
+    opacity: 0.2;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+.bottom{
+    width: 263px;
+    height: 20px;
+    transform: rotate(0deg);
+    opacity: 1;
+    padding-bottom: 10px;
+    position: absolute;
+    left: 445px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

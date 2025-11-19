@@ -11,6 +11,7 @@
 :root {
   --sienna: #b1560e;
   --sienna-2: #92633a;
+  --sienna-3: #024f02;
   --white: #ffffff;
   --black: #000000;
   --tan: #c19f7a;
@@ -83,6 +84,7 @@ header::after {
 .logo-img {
   height: 56px;
   display: block;
+  margin-left: 57%;
 }
 
 /* Site brand (logo + name) */
@@ -440,12 +442,12 @@ footer {
 .hero-content h1 {
   font-family: "Veneer", serif;
   font-weight: 500;
-  font-size: clamp(6rem, 18rem, 14rem);
+  font-size: clamp(6rem, 18rem, 12rem);
   text-transform: uppercase;
   margin-left: 27%; /* 🔹 slightly more to the right (was 25%) */
   margin-top: 110px; /* 🔹 moves heading a bit downward */
   line-height: 0.8;
-  color: transparent;
+  color: var(--sienna);
   -webkit-text-stroke: 1px var(--sienna);
   opacity: 0;
   width: 100%;
@@ -464,7 +466,8 @@ footer {
 .highlight {
   display: inline-block;
   position: relative;
-  margin-left: 10%;
+  margin-left: 5%;
+  font-size: 10rem;
 }
 .main-heading {
   margin-top: -90%;
@@ -491,7 +494,7 @@ footer {
 .hero-bottle {
     position: absolute;
     left: 0;
-    right: 25%;
+    right: 30%;
     top: 65%;
     width: auto;
     height: 100%;
@@ -502,7 +505,7 @@ ease;
 }
 .hero-stamp {
   position: absolute;
-  left: 90%;
+  left: 82%;
   top: 20%;
   right: 0;
   z-index: 5;
@@ -1740,4 +1743,44 @@ body {
     margin-left: 0;
     padding: 0 1rem;
   }
+}
+/* --- Sidebar Fix --- */
+/* === Fixed Sidebar Below Header (no horizontal scroll) === */
+.social-sidebar {
+  position: fixed;
+  top: 140px; /* ✅ remove quotes */
+  left: 0; /* ✅ keep sidebar anchored to left edge */
+  width: 175px; /* ✅ remove quotes */
+  height: fit-content;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  overflow-x: hidden; /* ✅ prevents sideways scroll in sidebar */
+  background: var(--papaya-whip);
+  border-right: 1px solid rgba(146, 99, 58, 0.12);
+  z-index: 50;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* --- Align main content (no horizontal overflow) --- */
+.aligned-main {
+  margin-left: 130px; /* ✅ match sidebar width */
+  padding-left: 0;
+  background-color: var(--papaya-whip);
+  overflow-x: hidden; /* ✅ stops accidental overflow */
+}
+
+/* --- Footer Fix --- */
+footer {
+  background: var(--sienna-2);
+  color: var(--white);
+  padding: 3rem 2rem;
+  min-height: auto;
+}
+
+/* --- Body flow fix --- */
+body {
+  display: block;
+  overflow-x: hidden; /* ✅ hides any global horizontal scroll */
+  background: var(--papaya-whip);
 }

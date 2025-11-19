@@ -1,0 +1,41 @@
+
+
+
+.blogtext-title{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    position: relative;
+    left: -65px;
+    font-size: 72px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+    color: rgba(240, 235, 225, 1);
+    width: 970px;
+    height: 160px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.blogtext-content p{
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 140%;
+    letter-spacing: 0.05em;
+    color: rgba(240, 235, 225, 1);
+    text-align: center;
+    width: 412px;
+    left: 195px;
+    justify-content: center;
+    height: 116px;
+}
+
+/* .explore-section{
+ 
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 80px;
+    width: 100%;
+    height: 300px;
+} */

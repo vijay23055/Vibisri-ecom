@@ -11,27 +11,29 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
     priceRange: false,
     collections: false,
     tags: false,
-    ratings: false
+    ratings: false,
   });
 
   const toggleSection = (section) => {
-    setExpandedSections(prev => ({
+    setExpandedSections((prev) => ({
       ...prev,
-      [section]: !prev[section]
+      [section]: !prev[section],
     }));
   };
 
   const FilterSection = ({ title, children, sectionKey }) => (
-    <div className="border-b border-gray-200 py-2">
+    <div className="border-b border-[#e6dcc4] pb-2 mb-2">
       <button
         onClick={() => toggleSection(sectionKey)}
         className="flex w-full items-center justify-between text-left"
       >
-        <h3 className="text-xs font-medium text-gray-800">{title}</h3>
+        <h3 className="text-[0.75rem] font-semibold tracking-wide text-[#5b3a1a] uppercase">
+          {title}
+        </h3>
         {expandedSections[sectionKey] ? (
-          <ChevronUp className="h-3 w-3 text-gray-500" />
+          <ChevronUp className="h-3.5 w-3.5 text-[#a27c48]" />
         ) : (
-          <ChevronDown className="h-3 w-3 text-gray-500" />
+          <ChevronDown className="h-3.5 w-3.5 text-[#a27c48]" />
         )}
       </button>
       {expandedSections[sectionKey] && (
@@ -41,12 +43,28 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
   );
 
   return (
-    <div className="rounded-xl bg-white p-3 shadow-sm" style={{ width: '240px' }}>
-      <h2 className="mb-3 text-base font-semibold text-gray-800">Filters</h2>
+    <aside
+      className="
+        fixed top-[170px] left-0 
+        w-[250px] h-[calc(100vh-120px)]
+        bg-gradient-to-b from-[#F0EBE1] to-[#f7f1e8]
+        shadow-[0_4px_12px_rgba(0,0,0,0.08)]
+        border-r border-[#e5dcc5]
+        overflow-y-auto z-[100]
+        p-4
+        flex flex-col
+        rounded-none
+      "
+    >
+      <h2 className="mb-4 text-sm font-semibold tracking-widest text-[#5b3a1a] uppercase border-b border-[#e2d5bc] pb-2">
+        Filters
+      </h2>
 
       {/* Quantity */}
-      <div className="mb-3">
-        <h3 className="mb-2 text-xs font-medium text-gray-800">Quantity</h3>
+      <div className="mb-4">
+        <h3 className="text-[0.75rem] font-semibold tracking-wide text-[#5b3a1a] uppercase mb-2">
+          Quantity
+        </h3>
         <div className="flex gap-1.5">
           {[50, 250, 500].map((qty) => (
             <button
@@ -54,8 +72,8 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
               onClick={() => onFilterChange('quantity', qty)}
               className={`rounded-md border px-2.5 py-1 text-xs font-medium transition-all ${
                 filters.quantity === qty
-                  ? 'border-red-500 bg-red-50 text-red-600'
-                  : 'border-gray-300 text-gray-600 hover:border-gray-400'
+                  ? 'border-[#b1560e] bg-[#f5e8d2] text-[#b1560e]'
+                  : 'border-gray-300 text-gray-600 hover:border-[#c09d6f]'
               }`}
             >
               {qty}
@@ -74,7 +92,7 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
           />
           <Label
             htmlFor="availability"
-            className="cursor-pointer text-xs font-normal text-gray-600"
+            className="cursor-pointer text-xs text-[#4b3a2a]"
           >
             Availability <span className="text-gray-400">(450)</span>
           </Label>
@@ -87,7 +105,7 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
           />
           <Label
             htmlFor="outOfStock"
-            className="cursor-pointer text-xs font-normal text-gray-600"
+            className="cursor-pointer text-xs text-[#4b3a2a]"
           >
             Out Of Stock <span className="text-gray-400">(18)</span>
           </Label>
@@ -96,26 +114,28 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
 
       {/* Category */}
       <FilterSection title="Category" sectionKey="category">
-        {['Masala Powder', 'Masala', 'Powder', 'Health Mix', 'Pickle'].map((cat) => (
-          <div key={cat} className="flex items-center space-x-2">
-            <Checkbox
-              id={cat}
-              checked={filters.categories?.includes(cat)}
-              onCheckedChange={(checked) => {
-                const newCategories = checked
-                  ? [...(filters.categories || []), cat]
-                  : (filters.categories || []).filter((c) => c !== cat);
-                onFilterChange('categories', newCategories);
-              }}
-            />
-            <Label
-              htmlFor={cat}
-              className="cursor-pointer text-xs font-normal text-gray-600"
-            >
-              {cat}
-            </Label>
-          </div>
-        ))}
+        {['Masala Powder', 'Masala', 'Powder', 'Health Mix', 'Pickle'].map(
+          (cat) => (
+            <div key={cat} className="flex items-center space-x-2">
+              <Checkbox
+                id={cat}
+                checked={filters.categories?.includes(cat)}
+                onCheckedChange={(checked) => {
+                  const newCategories = checked
+                    ? [...(filters.categories || []), cat]
+                    : (filters.categories || []).filter((c) => c !== cat);
+                  onFilterChange('categories', newCategories);
+                }}
+              />
+              <Label
+                htmlFor={cat}
+                className="cursor-pointer text-xs text-[#4b3a2a]"
+              >
+                {cat}
+              </Label>
+            </div>
+          )
+        )}
       </FilterSection>
 
       {/* Colors */}
@@ -134,7 +154,7 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
             />
             <Label
               htmlFor={color}
-              className="cursor-pointer text-xs font-normal text-gray-600"
+              className="cursor-pointer text-xs text-[#4b3a2a]"
             >
               {color}
             </Label>
@@ -158,7 +178,7 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
             />
             <Label
               htmlFor={range}
-              className="cursor-pointer text-xs font-normal text-gray-600"
+              className="cursor-pointer text-xs text-[#4b3a2a]"
             >
               ₹{range}
             </Label>
@@ -168,7 +188,14 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
 
       {/* Collections */}
       <FilterSection title="Collections" sectionKey="collections">
-        {['Spices', 'Masala Mix', 'Rice Mixes', 'Powders', 'Pickles', 'Health Products'].map((collection) => (
+        {[
+          'Spices',
+          'Masala Mix',
+          'Rice Mixes',
+          'Powders',
+          'Pickles',
+          'Health Products',
+        ].map((collection) => (
           <div key={collection} className="flex items-center space-x-2">
             <Checkbox
               id={collection}
@@ -182,7 +209,7 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
             />
             <Label
               htmlFor={collection}
-              className="cursor-pointer text-xs font-normal text-gray-600"
+              className="cursor-pointer text-xs text-[#4b3a2a]"
             >
               {collection}
             </Label>
@@ -206,7 +233,7 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
             />
             <Label
               htmlFor={tag}
-              className="cursor-pointer text-xs font-normal text-gray-600"
+              className="cursor-pointer text-xs text-[#4b3a2a]"
             >
               {tag}
             </Label>
@@ -227,14 +254,14 @@ const FilterSidebar = ({ filters, onFilterChange }) => {
             />
             <Label
               htmlFor={`rating-${rating}`}
-              className="cursor-pointer text-xs font-normal text-gray-600"
+              className="cursor-pointer text-xs text-[#4b3a2a]"
             >
               {rating}★ & above
             </Label>
           </div>
         ))}
       </FilterSection>
-    </div>
+    </aside>
   );
 };
 

@@ -1,0 +1,65 @@
+/* === Header Section === */
+.blogpage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fffaf0;
+    border: 1px solid rgba(38, 37, 34, 0.24);
+    border-radius: 32px;
+    padding: 10px 30px;
+    width: 90%;
+    width: 1350px;
+    z-index: 10;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+  
+  .logo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 105px;
+  }
+  
+  .blog-link {
+    margin: 0 10px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    color: #222;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .blog-link:hover {
+    color: #ee6352;
+  }
+  
+  .search-btn {
+    width: 40px;
+    height: 35px;
+    border-radius: 50%;
+    background: #f0ebe1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    border: 1px solid rgba(38, 37, 34, 0.15);
+    transition: background 0.3s ease;
+  }
+  
+  .search-btn:hover {
+    background: #eee;
+  }
+  
+  .subcribe-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #000;
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .subcribe-btn:hover {
+    background: #333;
+  }

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SubscribeSection() {
   return (
-    <section className="relative bg-[#FF6B57] text-white py-20 px-6 overflow-hidden rounded-3xl shadow-lg">
+    <section className="relative bg-[#FF6B57] text-white py-20 px-6 overflow-hidden rounded-3xl shadow-lg mt-10 mb-10">
       {/* Background Curves */}
       <div className="absolute inset-0 flex justify-between opacity-30">
         <div className="w-1/2 bg-[#FF806A] rounded-[100%] blur-3xl scale-150 -translate-x-1/3"></div>

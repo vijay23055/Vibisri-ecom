@@ -39,7 +39,7 @@ const CartDrawer = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemove, on
       />
 
       {/* Drawer */}
-      <div className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-[#E8E0D5] shadow-2xl z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto">
+      <div className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-[#E8E0D5] shadow-2xl z-50 transform transition-transform duration-500 ease-in-out overflow-y-auto">
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-300">

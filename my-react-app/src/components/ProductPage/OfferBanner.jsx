@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { offers } from '../../data/mockProducts';
+import React from "react";
+import { offers } from "../../data/mockProducts";
 
 const OfferBanner = () => {
-  const [currentOffer, setCurrentOffer] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentOffer((prev) => (prev + 1) % offers.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
+  // Combine offers with separator for smooth looping
+  const scrollingText = offers.join(" • ");
 
   return (
-    <div className="overflow-hidden bg-gradient-to-r from-red-500 to-orange-500 py-2">
-      <div className="animate-scroll">
-        <p className="text-center text-xs font-medium text-white">
-          {offers[currentOffer]}
+    <div className="relative w-full overflow-hidden bg-gradient-to-r from-red-600 to-orange-500 py-2 group">
+      <div className="whitespace-nowrap animate-marquee group-hover:[animation-play-state:paused]">
+        <p className="inline-block text-sm font-semibold text-white tracking-wide px-2">
+          {scrollingText} • {scrollingText} • {scrollingText}
         </p>
       </div>
     </div>
